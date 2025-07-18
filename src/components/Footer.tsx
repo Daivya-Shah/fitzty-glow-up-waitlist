@@ -1,6 +1,4 @@
-import { InstagramLogo, TiktokLogo } from 'phosphor-react';
-// Import LinkedInLogo from phosphor-react if available
-import { LinkedinLogo } from 'phosphor-react';
+import { InstagramLogo, TiktokLogo, LinkedinLogo } from 'phosphor-react';
 
 const Footer = () => {
   return (
