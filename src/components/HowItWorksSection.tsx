@@ -21,7 +21,7 @@ const HowItWorksSection = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 border-b border-border/20">
+    <section id="how-it-works" className="py-20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-fade-up">
           <h2 className="text-3xl md:text-5xl font-light tracking-tighter mb-4">
@@ -41,7 +41,7 @@ const HowItWorksSection = () => {
             >
               {/* Step Number */}
               <div className="flex-shrink-0 relative">
-                <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center glass border border-border/20 shadow-glow`}>
+                <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center glass border-2 border-border/40 shadow-glow`}>
                   <span className="text-3xl font-light tracking-tighter text-primary">
                     {step.step}
                   </span>

@@ -28,7 +28,7 @@ const FAQSection = () => {
   };
 
   return (
-    <section id="faq" className="py-20 border-b border-border/20">
+    <section id="faq" className="py-20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-fade-up">
           <h2 className="text-3xl md:text-5xl font-light tracking-tighter mb-4">
@@ -43,7 +43,7 @@ const FAQSection = () => {
           {faqs.map((faq, index) => (
             <div 
               key={index}
-              className="glass rounded-2xl overflow-hidden animate-fade-up"
+              className="glass rounded-2xl overflow-hidden animate-fade-up shadow-card border-2 border-border/30"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <button

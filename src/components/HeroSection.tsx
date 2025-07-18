@@ -46,7 +46,7 @@ const HeroSection = () => {
         {/* App Mockup */}
         <div className="animate-fade-up mt-20" style={{ animationDelay: '0.7s' }}>
           <div className="relative max-w-4xl mx-auto">
-            <div className="glass rounded-3xl p-4 shadow-elevated">
+            <div className="glass rounded-3xl p-4 shadow-elevated border-2 border-border/30">
               <img 
                 src={heroMockup} 
                 alt="Fitzty App Interface" 
@@ -62,7 +62,7 @@ const HeroSection = () => {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex justify-center">
+        <div className="w-6 h-10 border-2 border-muted-foreground/60 rounded-full flex justify-center">
           <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse" />
         </div>
       </div>

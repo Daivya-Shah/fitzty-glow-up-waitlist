@@ -53,7 +53,7 @@ const WaitlistSection = () => {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="glass border-border/20 font-light"
+                className="glass border-border/40 font-light"
                 disabled={isSubmitting}
               />
               <Button 

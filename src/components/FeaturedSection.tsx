@@ -9,7 +9,7 @@ const FeaturedSection = () => {
   ];
 
   return (
-    <section className="py-20 border-b border-border/20">
+    <section className="py-20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-fade-up">
           <p className="text-sm font-light tracking-wide text-muted-foreground uppercase mb-8">
@@ -19,7 +19,7 @@ const FeaturedSection = () => {
             {mediaLogos.map((logo, index) => (
               <div 
                 key={logo.name}
-                className={`${logo.width} h-8 glass rounded-lg flex items-center justify-center animate-fade-up`}
+                className={`${logo.width} h-8 glass rounded-lg flex items-center justify-center animate-fade-up border border-border/40 shadow-sm`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <span className="text-xs font-light tracking-wider text-muted-foreground">

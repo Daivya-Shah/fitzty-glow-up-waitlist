@@ -2,7 +2,7 @@ import fashionLifestyle from '@/assets/fashion-lifestyle.jpg';
 
 const MissionSection = () => {
   return (
-    <section className="py-20 border-b border-border/20">
+    <section className="py-20">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -30,7 +30,7 @@ const MissionSection = () => {
             {/* Image */}
             <div className="animate-fade-up lg:order-first" style={{ animationDelay: '0.2s' }}>
               <div className="relative">
-                <div className="glass rounded-3xl p-4">
+                <div className="glass rounded-3xl p-4 border-2 border-border/30 shadow-card">
                   <img 
                     src={fashionLifestyle} 
                     alt="Fashion Community" 

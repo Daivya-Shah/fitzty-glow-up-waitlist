@@ -32,7 +32,7 @@ const Header = () => {
     <>
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'blur-nav border-b border-border/20' : 'blur-nav border-b border-border/10'
+          isScrolled ? 'blur-nav border-b border-border/40 shadow-lg' : 'blur-nav border-b border-border/30'
         }`}
       >
         <div className="container mx-auto px-6 py-4">
@@ -58,7 +58,7 @@ const Header = () => {
               <Button 
                 onClick={() => scrollToSection('waitlist')}
                 variant="outline" 
-                className="glow-button font-light"
+                className="glow-button font-light border-primary text-primary hover:text-primary hover:border-primary"
               >
                 Join Waitlist
               </Button>
@@ -89,7 +89,7 @@ const Header = () => {
              onClick={() => setIsMenuOpen(false)} 
         />
         <div 
-          className={`absolute right-0 top-0 h-full w-80 glass border-l border-border/20 transform transition-transform duration-300 ${
+          className={`absolute right-0 top-0 h-full w-80 glass border-l border-border/40 transform transition-transform duration-300 ${
             isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
@@ -109,7 +109,7 @@ const Header = () => {
                   scrollToSection('waitlist');
                   setIsMenuOpen(false);
                 }}
-                className="w-full glow-button font-light mt-8"
+                className="w-full glow-button font-light mt-8 border-primary text-primary hover:text-primary hover:border-primary"
               >
                 Join Waitlist
               </Button>

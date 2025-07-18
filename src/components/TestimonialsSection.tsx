@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   const testimonials = [
     {
@@ -41,26 +42,42 @@ const TestimonialsSection = () => {
     }
   ];
 
-  // Duplicate testimonials for seamless loop
-  const duplicatedTestimonials = [...testimonials, ...testimonials];
+  // Create a longer array for seamless right-only cycling
+  const extendedTestimonials = [...testimonials, ...testimonials, ...testimonials];
 
   useEffect(() => {
+    if (isPaused) return;
+
     const timer = setInterval(() => {
       setCurrentIndex((prev) => {
         const nextIndex = prev + 1;
-        // When we reach the end of the first set, reset to 0 after a brief moment
+        // When we reach the end of the first set, continue to the next set seamlessly
         if (nextIndex >= testimonials.length) {
-          setTimeout(() => setCurrentIndex(0), 500);
-          return nextIndex;
+          return nextIndex; // Continue to the duplicated set (no reset)
         }
         return nextIndex;
       });
     }, 3000);
     return () => clearInterval(timer);
-  }, [testimonials.length]);
+  }, [testimonials.length, isPaused]);
+
+  const handleButtonClick = (index: number) => {
+    if (isPaused && (currentIndex % testimonials.length) === index) {
+      // Resume cycling
+      setIsPaused(false);
+    } else {
+      // Pause on specific testimonial
+      setIsPaused(true);
+      setCurrentIndex(index);
+    }
+  };
+
+  const getCurrentTestimonialIndex = () => {
+    return currentIndex % testimonials.length;
+  };
 
   return (
-    <section className="py-20 border-b border-border/20">
+    <section className="py-20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-fade-up">
           <h2 className="text-3xl md:text-5xl font-light tracking-tighter mb-4">
@@ -71,20 +88,19 @@ const TestimonialsSection = () => {
           </p>
         </div>
 
-        {/* Horizontal scroll testimonials */}
+        {/* Testimonials container */}
         <div className="relative overflow-hidden">
           <div 
             className="flex transition-transform duration-500 ease-in-out gap-6"
             style={{ 
               transform: `translateX(-${currentIndex * (320 + 24)}px)`,
-              width: `${duplicatedTestimonials.length * (320 + 24)}px`
+              width: `${extendedTestimonials.length * (320 + 24)}px`
             }}
           >
-            {duplicatedTestimonials.map((testimonial, index) => (
+            {extendedTestimonials.map((testimonial, index) => (
               <div 
                 key={index}
-                className="w-80 flex-shrink-0 glass rounded-2xl p-6 animate-fade-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="w-80 flex-shrink-0 bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-border/20 shadow-sm hover:shadow-md transition-shadow duration-300"
               >
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center text-2xl mr-4">
@@ -106,14 +122,16 @@ const TestimonialsSection = () => {
           </div>
         </div>
 
-        {/* Dots indicator */}
-        <div className="flex justify-center mt-8 space-x-2">
+        {/* 5 buttons for each testimonial */}
+        <div className="flex justify-center mt-8 space-x-3">
           {testimonials.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                index === currentIndex ? 'bg-primary w-8' : 'bg-muted-foreground/30'
+              onClick={() => handleButtonClick(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                getCurrentTestimonialIndex() === index
+                  ? 'bg-primary w-8' 
+                  : 'bg-muted-foreground/40 hover:bg-muted-foreground/60'
               }`}
             />
           ))}
