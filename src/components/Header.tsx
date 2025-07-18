@@ -32,7 +32,7 @@ const Header = () => {
     <>
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'blur-nav border-b border-border/20' : 'bg-transparent'
+          isScrolled ? 'blur-nav border-b border-border/20' : 'blur-nav border-b border-border/10'
         }`}
       >
         <div className="container mx-auto px-6 py-4">

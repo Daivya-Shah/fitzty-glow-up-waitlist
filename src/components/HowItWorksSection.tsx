@@ -1,24 +1,22 @@
-import fashionItems from '@/assets/fashion-items.jpg';
-
 const HowItWorksSection = () => {
   const steps = [
     {
+      step: "01",
       title: "Upload your wardrobe or scan your closet",
-      description: "AI-powered recognition catalogues your pieces instantly",
-      image: fashionItems,
-      gradient: "from-primary/20 to-transparent"
+      description: "Add your clothes to build your digital wardrobe. Our AI recognizes brands, colors, and styles automatically.",
+      gradient: "from-primary/20 to-accent/20"
     },
     {
+      step: "02", 
       title: "Post fits & tag your vibe",
-      description: "Share your style and connect with your aesthetic tribe",
-      image: fashionItems,
-      gradient: "from-accent/20 to-transparent"
+      description: "Share your outfits with the community. Tag your mood, occasion, and style for better AI recommendations.",
+      gradient: "from-accent/20 to-primary/20"
     },
     {
-      title: "Earn clout & get AI style boosts",
-      description: "Gain followers, unlock challenges, and level up your fashion game",
-      image: fashionItems,
-      gradient: "from-primary-glow/20 to-transparent"
+      step: "03",
+      title: "Earn clout & get AI style boosts", 
+      description: "Get likes, comments, and style points. Unlock exclusive challenges and receive personalized AI styling tips.",
+      gradient: "from-primary/20 to-secondary/20"
     }
   ];
 
@@ -34,39 +32,35 @@ const HowItWorksSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="relative max-w-4xl mx-auto">
           {steps.map((step, index) => (
             <div 
-              key={index}
-              className="relative group animate-fade-up"
+              key={index} 
+              className="flex flex-col lg:flex-row items-center gap-12 mb-16 last:mb-0 animate-fade-up"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
-              <div className="glass rounded-2xl p-8 h-full hover:shadow-glow transition-all duration-300 group-hover:scale-105">
-                {/* Step number */}
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-primary text-primary-foreground font-medium mb-6">
-                  {index + 1}
+              {/* Step Number */}
+              <div className="flex-shrink-0 relative">
+                <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center glass border border-border/20 shadow-glow`}>
+                  <span className="text-3xl font-light tracking-tighter text-primary">
+                    {step.step}
+                  </span>
                 </div>
-
-                {/* Image */}
-                <div className="relative mb-6 overflow-hidden rounded-xl">
-                  <img 
-                    src={step.image} 
-                    alt={step.title}
-                    className="w-full h-32 object-cover"
-                  />
-                  <div className={`absolute inset-0 bg-gradient-to-t ${step.gradient}`} />
-                </div>
-
-                {/* Content */}
-                <h3 className="text-xl font-light tracking-tight text-foreground mb-3">
+                
+                {/* Connector Line (except for last item) */}
+                {index < steps.length - 1 && (
+                  <div className="hidden lg:block absolute left-1/2 top-24 w-px h-16 bg-gradient-to-b from-primary/30 to-transparent transform -translate-x-1/2" />
+                )}
+              </div>
+              
+              {/* Content */}
+              <div className="flex-1 text-center lg:text-left">
+                <h3 className="text-2xl lg:text-3xl font-light tracking-tight mb-4 text-foreground">
                   {step.title}
                 </h3>
-                <p className="text-muted-foreground font-light">
+                <p className="text-lg text-muted-foreground font-light leading-relaxed max-w-2xl">
                   {step.description}
                 </p>
-
-                {/* Decorative elements */}
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-primary/30 rounded-full blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             </div>
           ))}
