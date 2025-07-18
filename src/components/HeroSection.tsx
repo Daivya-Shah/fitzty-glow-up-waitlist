@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import heroMockup from '@/assets/hero-app-mockup.jpg';
+// import heroMockup from '@/assets/hero-app-mockup.jpg';
 
 const HeroSection = () => {
   const scrollToWaitlist = () => {
@@ -47,11 +47,8 @@ const HeroSection = () => {
         <div className="animate-fade-up mt-20" style={{ animationDelay: '0.7s' }}>
           <div className="relative max-w-4xl mx-auto">
             <div className="glass rounded-3xl p-4 shadow-elevated border-2 border-border/30">
-              <img 
-                src={heroMockup} 
-                alt="Fitzty App Interface" 
-                className="w-full rounded-2xl"
-              />
+              {/* White placeholder image, same aspect ratio as before */}
+              <div className="w-full rounded-2xl bg-white" style={{ aspectRatio: '16/9', minHeight: '200px' }} />
             </div>
             {/* Floating elements for extra flair */}
             <div className="absolute -top-6 -left-6 w-24 h-24 bg-primary/20 rounded-full blur-xl animate-pulse" />
