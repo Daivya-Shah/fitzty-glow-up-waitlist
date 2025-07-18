@@ -41,9 +41,20 @@ const TestimonialsSection = () => {
     }
   ];
 
+  // Duplicate testimonials for seamless loop
+  const duplicatedTestimonials = [...testimonials, ...testimonials];
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      setCurrentIndex((prev) => {
+        const nextIndex = prev + 1;
+        // When we reach the end of the first set, reset to 0 after a brief moment
+        if (nextIndex >= testimonials.length) {
+          setTimeout(() => setCurrentIndex(0), 500);
+          return nextIndex;
+        }
+        return nextIndex;
+      });
     }, 3000);
     return () => clearInterval(timer);
   }, [testimonials.length]);
@@ -66,10 +77,10 @@ const TestimonialsSection = () => {
             className="flex transition-transform duration-500 ease-in-out gap-6"
             style={{ 
               transform: `translateX(-${currentIndex * (320 + 24)}px)`,
-              width: `${testimonials.length * (320 + 24)}px`
+              width: `${duplicatedTestimonials.length * (320 + 24)}px`
             }}
           >
-            {testimonials.map((testimonial, index) => (
+            {duplicatedTestimonials.map((testimonial, index) => (
               <div 
                 key={index}
                 className="w-80 flex-shrink-0 glass rounded-2xl p-6 animate-fade-up"
