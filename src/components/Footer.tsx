@@ -1,4 +1,6 @@
 import { InstagramLogo, TiktokLogo } from 'phosphor-react';
+// Import LinkedInLogo from phosphor-react if available
+import { LinkedinLogo } from 'phosphor-react';
 
 const Footer = () => {
   return (
@@ -45,6 +47,14 @@ const Footer = () => {
               className="w-10 h-10 glass rounded-full flex items-center justify-center hover:shadow-glow transition-all hover:scale-110"
             >
               <TiktokLogo size={20} weight="light" className="text-primary" />
+            </a>
+            <a 
+              href="https://linkedin.com/company/fitzty" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-10 h-10 glass rounded-full flex items-center justify-center hover:shadow-glow transition-all hover:scale-110"
+            >
+              <LinkedinLogo size={20} weight="light" className="text-primary" />
             </a>
           </div>
         </div>

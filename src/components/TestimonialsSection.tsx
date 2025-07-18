@@ -89,7 +89,7 @@ const TestimonialsSection = () => {
         </div>
 
         {/* Testimonials container */}
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-x-hidden py-6 px-2 md:px-8">
           <div 
             className="flex transition-transform duration-500 ease-in-out gap-6"
             style={{ 
@@ -100,7 +100,7 @@ const TestimonialsSection = () => {
             {extendedTestimonials.map((testimonial, index) => (
               <div 
                 key={index}
-                className="w-80 flex-shrink-0 bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-border/20 shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="w-80 flex-shrink-0 bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-border/20 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-300"
               >
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center text-2xl mr-4">
