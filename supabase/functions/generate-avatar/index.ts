@@ -28,7 +28,50 @@ serve(async (req) => {
     
     console.log('Generating avatar for user:', userId);
 
-    // Generate avatar wearing the clothing item using DALL-E 3
+    // First, analyze the clothing image with GPT-4 Vision to get detailed description
+    console.log('Analyzing clothing image with GPT-4 Vision...');
+    const visionResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${openAIApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o',
+        messages: [
+          {
+            role: 'user',
+            content: [
+              {
+                type: 'text',
+                text: 'Analyze this clothing item image in extreme detail. Describe the exact clothing item, including: type of garment, color, pattern, texture, style, fit, any logos or text, decorative elements, fabric appearance, and any unique features. Be very specific and detailed as this description will be used to recreate the exact same clothing item on an avatar.'
+              },
+              {
+                type: 'image_url',
+                image_url: {
+                  url: `data:image/jpeg;base64,${imageBase64}`
+                }
+              }
+            ]
+          }
+        ],
+        max_tokens: 500
+      }),
+    });
+
+    if (!visionResponse.ok) {
+      const visionError = await visionResponse.text();
+      console.error('GPT-4 Vision API error:', visionError);
+      throw new Error(`Vision analysis failed: ${visionResponse.status} - ${visionError}`);
+    }
+
+    const visionData = await visionResponse.json();
+    const detailedClothingDescription = visionData.choices[0].message.content;
+    
+    console.log('Clothing analysis complete:', detailedClothingDescription);
+
+    // Generate avatar wearing the exact clothing item using DALL-E 3
+    console.log('Generating avatar with DALL-E 3...');
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
@@ -37,7 +80,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         model: 'dall-e-3',
-        prompt: `Create a stylish fashion avatar wearing the clothing item described as: ${description || 'fashion item'}. The avatar should be a modern, attractive person in a clean studio setting, showcasing the fashion item prominently. Style: professional fashion photography, clean background, good lighting.`,
+        prompt: `Create a single 2D fashion avatar of one attractive person wearing this exact clothing item: ${detailedClothingDescription}. The avatar should be a modern person in a clean studio setting, showcasing the clothing item prominently. Style: professional fashion photography, clean white background, good lighting. The person should be wearing the EXACT same clothing item as described. Make sure it's only one person in the image.`,
         n: 1,
         size: '1024x1024',
         quality: 'standard'
