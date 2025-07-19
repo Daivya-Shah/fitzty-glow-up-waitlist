@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 // import heroMockup from '@/assets/hero-app-mockup.jpg';
 
 const HeroSection = () => {
-  const scrollToWaitlist = () => {
-    const element = document.getElementById('waitlist');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const navigate = useNavigate();
+
+  const goToAuth = () => {
+    navigate('/auth');
   };
 
   return (
@@ -34,11 +34,11 @@ const HeroSection = () => {
 
           <div className="animate-fade-up" style={{ animationDelay: '0.5s' }}>
             <Button 
-              onClick={scrollToWaitlist}
+              onClick={goToAuth}
               size="lg"
               className="glow-button text-lg px-12 py-6 rounded-2xl font-light tracking-tight"
             >
-              Join the Waitlist
+              Login / Sign Up
             </Button>
           </div>
         </div>

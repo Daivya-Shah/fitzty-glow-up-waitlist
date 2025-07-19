@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
@@ -9,6 +11,15 @@ import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
 
 const Index = () => {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && user) {
+      navigate('/profile');
+    }
+  }, [user, loading, navigate]);
+
   useEffect(() => {
     // Intersection Observer for scroll animations
     const observer = new IntersectionObserver(

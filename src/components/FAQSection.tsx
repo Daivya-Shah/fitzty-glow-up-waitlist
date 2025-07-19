@@ -15,7 +15,7 @@ const FAQSection = () => {
     },
     {
       question: "When does the app launch?",
-      answer: "We're launching in early 2024! Join the waitlist to get exclusive early access, plus special beta user perks when we go live."
+      answer: "We're launching in early 2024! Login or sign up to get exclusive early access, plus special beta user perks when we go live."
     },
     {
       question: "How does the StyleMap work?",

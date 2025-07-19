@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,11 +58,11 @@ const Header = () => {
                 </button>
               ))}
               <Button 
-                onClick={() => scrollToSection('waitlist')}
+                onClick={() => navigate('/auth')}
                 variant="outline" 
                 className="glow-button font-light border-primary text-primary hover:text-primary hover:border-primary"
               >
-                Join Waitlist
+                Login / Sign Up
               </Button>
             </div>
 
@@ -106,12 +108,12 @@ const Header = () => {
               ))}
               <Button 
                 onClick={() => {
-                  scrollToSection('waitlist');
+                  navigate('/auth');
                   setIsMenuOpen(false);
                 }}
                 className="w-full glow-button font-light mt-8 border-primary text-primary hover:text-primary hover:border-primary"
               >
-                Join Waitlist
+                Login / Sign Up
               </Button>
             </div>
           </div>
