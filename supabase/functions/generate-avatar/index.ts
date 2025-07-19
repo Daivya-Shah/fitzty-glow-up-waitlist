@@ -39,7 +39,7 @@ serve(async (req) => {
         prompt: `Create a stylish fashion avatar wearing the clothing item or accessory from the provided image. The avatar should be a modern, attractive person in a clean studio setting, showcasing the fashion item prominently. Style: professional fashion photography, clean background, good lighting. The description of the item is: ${description || 'fashion item'}`,
         n: 1,
         size: '1024x1024',
-        quality: 'hd'
+        quality: 'high'
       }),
     });
 
