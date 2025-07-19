@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Upload, Users, UserPlus, UserMinus, Settings } from 'lucide-react';
+import { Upload, Users, UserPlus, UserMinus, Settings, ArrowLeft, Heart, MessageCircle, Share } from 'lucide-react';
 import WardrobeUpload from '@/components/WardrobeUpload';
 import WardrobeGrid from '@/components/WardrobeGrid';
 
@@ -179,24 +179,45 @@ const Profile = () => {
       {/* Header */}
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Wardrobe
-          </h1>
           <div className="flex items-center gap-4">
+            {!isOwnProfile && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate('/profile')}
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </Button>
+            )}
+            <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              {isOwnProfile ? 'My Wardrobe' : `${profile.display_name || profile.username}'s Wardrobe`}
+            </h1>
+          </div>
+          <div className="flex items-center gap-2">
             <Button
               variant="ghost"
+              size="sm"
               onClick={() => navigate('/search')}
             >
-              <Users className="h-4 w-4 mr-2" />
-              Discover
+              <Users className="h-4 w-4" />
             </Button>
             {isOwnProfile && (
-              <Button
-                variant="outline"
-                onClick={handleSignOut}
-              >
-                Sign Out
-              </Button>
+              <>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => navigate('/settings')}
+                >
+                  <Settings className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleSignOut}
+                >
+                  Sign Out
+                </Button>
+              </>
             )}
           </div>
         </div>
@@ -252,15 +273,31 @@ const Profile = () => {
           </CardHeader>
         </Card>
 
+        {/* Action Buttons for Mobile */}
+        {isOwnProfile && (
+          <div className="fixed bottom-6 right-6 md:hidden">
+            <Button
+              onClick={() => setShowUpload(true)}
+              size="lg"
+              className="rounded-full shadow-lg"
+            >
+              <Upload className="h-6 w-6" />
+            </Button>
+          </div>
+        )}
+
         {/* Wardrobe Section */}
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="text-xl">Wardrobe</CardTitle>
+              <CardTitle className="text-xl">
+                {isOwnProfile ? 'My Items' : 'Wardrobe Items'}
+              </CardTitle>
               {isOwnProfile && (
                 <Button
                   onClick={() => setShowUpload(true)}
                   size="sm"
+                  className="hidden md:flex"
                 >
                   <Upload className="h-4 w-4 mr-2" />
                   Add Item

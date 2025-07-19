@@ -146,7 +146,7 @@ const Search = () => {
             profiles.map((profile) => (
               <Card 
                 key={profile.id} 
-                className="cursor-pointer hover:shadow-md transition-shadow"
+                className="cursor-pointer hover:shadow-lg transition-all duration-200 hover:scale-[1.02]"
                 onClick={() => navigate(`/profile/${profile.username}`)}
               >
                 <CardContent className="p-4">

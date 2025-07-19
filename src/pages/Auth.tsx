@@ -71,16 +71,19 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 flex items-center justify-center p-4">
+      <Card className="w-full max-w-md shadow-xl border-0 bg-card/80 backdrop-blur-sm">
+        <CardHeader className="text-center space-y-4">
+          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
+            <span className="text-2xl font-bold text-white">W</span>
+          </div>
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            {isSignUp ? 'Create Account' : 'Welcome Back'}
+            {isSignUp ? 'Join Wardrobe' : 'Welcome Back'}
           </CardTitle>
           <CardDescription>
             {isSignUp 
-              ? 'Sign up to start building your wardrobe' 
-              : 'Sign in to your account'
+              ? 'Create your account and start building your digital wardrobe' 
+              : 'Sign in to access your wardrobe and connect with others'
             }
           </CardDescription>
         </CardHeader>

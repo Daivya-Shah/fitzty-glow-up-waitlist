@@ -105,20 +105,24 @@ const WardrobeGrid = ({ userId, isOwnWardrobe }: WardrobeGridProps) => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {items.map((item) => (
-        <Card key={item.id} className="group overflow-hidden">
+        <Card key={item.id} className="group overflow-hidden hover:shadow-lg transition-all duration-200">
           <CardContent className="p-0 relative">
-            <div className="aspect-square relative">
+            <div className="aspect-square relative overflow-hidden">
               <img
                 src={item.image_url}
                 alt={item.description || 'Wardrobe item'}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200" />
               {isOwnWardrobe && (
-                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   <Button
                     variant="destructive"
                     size="sm"
-                    onClick={() => handleDelete(item.id, item.image_url)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(item.id, item.image_url);
+                    }}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -126,7 +130,7 @@ const WardrobeGrid = ({ userId, isOwnWardrobe }: WardrobeGridProps) => {
               )}
             </div>
             {item.description && (
-              <div className="p-2">
+              <div className="p-3">
                 <p className="text-sm text-muted-foreground line-clamp-2">
                   {item.description}
                 </p>
