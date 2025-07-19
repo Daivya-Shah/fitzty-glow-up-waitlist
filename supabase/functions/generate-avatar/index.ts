@@ -1,3 +1,4 @@
+
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
@@ -27,7 +28,7 @@ serve(async (req) => {
     
     console.log('Generating avatar for user:', userId);
 
-    // Generate avatar wearing the clothing item
+    // Generate avatar wearing the clothing item using DALL-E 3
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
@@ -35,18 +36,18 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-image-1',
-        prompt: `Create a stylish fashion avatar wearing the clothing item or accessory from the provided image. The avatar should be a modern, attractive person in a clean studio setting, showcasing the fashion item prominently. Style: professional fashion photography, clean background, good lighting. The description of the item is: ${description || 'fashion item'}`,
+        model: 'dall-e-3',
+        prompt: `Create a stylish fashion avatar wearing the clothing item described as: ${description || 'fashion item'}. The avatar should be a modern, attractive person in a clean studio setting, showcasing the fashion item prominently. Style: professional fashion photography, clean background, good lighting.`,
         n: 1,
         size: '1024x1024',
-        quality: 'high'
+        quality: 'standard'
       }),
     });
 
     if (!response.ok) {
       const error = await response.text();
       console.error('OpenAI API error:', error);
-      throw new Error('Failed to generate avatar image');
+      throw new Error(`OpenAI API error: ${response.status} - ${error}`);
     }
 
     const data = await response.json();
@@ -56,15 +57,19 @@ serve(async (req) => {
 
     // Download the generated image
     const imageResponse = await fetch(generatedImageUrl);
+    if (!imageResponse.ok) {
+      throw new Error('Failed to download generated image');
+    }
+    
     const imageBuffer = await imageResponse.arrayBuffer();
     const imageFile = new Uint8Array(imageBuffer);
 
     // Upload to Supabase storage
-    const fileName = `${userId}/${crypto.randomUUID()}.jpg`;
+    const fileName = `${userId}/${crypto.randomUUID()}.png`;
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from('wardrobes')
       .upload(fileName, imageFile, {
-        contentType: 'image/jpeg'
+        contentType: 'image/png'
       });
 
     if (uploadError) {
