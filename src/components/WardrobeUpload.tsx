@@ -41,38 +41,39 @@ const WardrobeUpload = ({ onClose, onUploadComplete }: WardrobeUploadProps) => {
 
     setUploading(true);
     try {
-      // Upload image to storage
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${user.id}/${Date.now()}.${fileExt}`;
+      // Convert file to base64
+      const fileReader = new FileReader();
+      const base64Promise = new Promise<string>((resolve, reject) => {
+        fileReader.onload = () => {
+          const result = fileReader.result as string;
+          const base64 = result.split(',')[1]; // Remove data:image/jpeg;base64, prefix
+          resolve(base64);
+        };
+        fileReader.onerror = reject;
+      });
       
-      const { error: uploadError } = await supabase.storage
-        .from('wardrobes')
-        .upload(fileName, file);
+      fileReader.readAsDataURL(file);
+      const imageBase64 = await base64Promise;
 
-      if (uploadError) throw uploadError;
+      // Call edge function to generate avatar
+      const { data, error } = await supabase.functions.invoke('generate-avatar', {
+        body: {
+          imageBase64,
+          description: description.trim() || 'Fashion item',
+          userId: user.id
+        }
+      });
 
-      // Get public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from('wardrobes')
-        .getPublicUrl(fileName);
-
-      // Save to database
-      const { error: dbError } = await supabase
-        .from('wardrobes')
-        .insert({
-          user_id: user.id,
-          image_url: publicUrl,
-          description: description.trim() || null,
-        });
-
-      if (dbError) throw dbError;
+      if (error) throw error;
+      if (!data.success) throw new Error(data.error || 'Failed to generate avatar');
 
       toast({
-        title: "Success!",
-        description: "Wardrobe item added successfully.",
+        title: "Avatar Generated!",
+        description: "Your AI avatar wearing the item has been added to your wardrobe.",
       });
 
       onUploadComplete();
+      onClose();
     } catch (error: any) {
       toast({
         variant: "destructive",
