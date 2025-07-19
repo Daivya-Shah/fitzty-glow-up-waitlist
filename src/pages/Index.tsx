@@ -1,48 +1,52 @@
 import { useEffect } from 'react';
-import Header from '@/components/Header';
-import HeroSection from '@/components/HeroSection';
-
-import TestimonialsSection from '@/components/TestimonialsSection';
-import HowItWorksSection from '@/components/HowItWorksSection';
-import FeaturesSection from '@/components/FeaturesSection';
-import MissionSection from '@/components/MissionSection';
-import FAQSection from '@/components/FAQSection';
-import WaitlistSection from '@/components/WaitlistSection';
-import Footer from '@/components/Footer';
+import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Index = () => {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    // Intersection Observer for scroll animations
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-up');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    if (!loading && user) {
+      navigate('/profile');
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
     );
-
-    const animateElements = document.querySelectorAll('.animate-fade-up');
-    animateElements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
+  }
 
   return (
-    <div className="min-h-screen bg-background font-inter">
-      <Header />
-      <main>
-        <HeroSection />
-        <TestimonialsSection />
-        <HowItWorksSection />
-        <FeaturesSection />
-        <MissionSection />
-        <FAQSection />
-        <WaitlistSection />
-      </main>
-      <Footer />
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <Card className="w-full max-w-lg text-center">
+        <CardHeader>
+          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Welcome to Wardrobe
+          </CardTitle>
+          <CardDescription className="text-lg">
+            Share your style, discover others, and connect through fashion
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-muted-foreground">
+            Build your digital wardrobe, follow friends, and explore fashion inspiration from around the world.
+          </p>
+          <div className="flex gap-4 justify-center">
+            <Button 
+              onClick={() => navigate('/auth')}
+              size="lg"
+            >
+              Get Started
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
