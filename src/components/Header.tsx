@@ -62,7 +62,7 @@ const Header = () => {
                 variant="outline" 
                 className="glow-button font-light border-primary text-primary hover:text-primary hover:border-primary"
               >
-                Login / Sign Up
+                Get Started
               </Button>
             </div>
 
@@ -106,14 +106,14 @@ const Header = () => {
                   {link.label}
                 </button>
               ))}
-              <Button 
+               <Button 
                 onClick={() => {
                   navigate('/auth');
                   setIsMenuOpen(false);
                 }}
                 className="w-full glow-button font-light mt-8 border-primary text-primary hover:text-primary hover:border-primary"
               >
-                Login / Sign Up
+                Get Started
               </Button>
             </div>
           </div>

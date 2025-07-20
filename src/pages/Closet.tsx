@@ -94,58 +94,46 @@ const Closet = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+      <header className="blur-nav border-b border-border/40 sticky top-0 z-50">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900">Fitzy</h1>
-            </div>
+            <button 
+              onClick={() => navigate('/')}
+              className="text-2xl font-bold tracking-tighter text-foreground"
+            >
+              Fitzty
+            </button>
 
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <Button variant="ghost" className="text-blue-600 font-medium">
+              <Button variant="ghost" className="text-foreground font-medium">
                 Home
               </Button>
-              <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
+              <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
                 Explore
-              </Button>
-              <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
-                <Bell className="h-5 w-5" />
-                Notifications
-              </Button>
-              <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
-                <MessageCircle className="h-5 w-5" />
-                Messages
               </Button>
             </nav>
 
             {/* Right side */}
             <div className="flex items-center space-x-4">
               <Button 
-                onClick={() => setShowUpload(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Add
-              </Button>
-              <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => navigate('/profile')}
                 className="rounded-full"
               >
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                  <User className="h-4 w-4 text-white" />
+                <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
+                  <User className="h-4 w-4 text-primary-foreground" />
                 </div>
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={handleSignOut}
-                className="text-gray-600 hover:text-gray-900"
+                className="text-muted-foreground hover:text-foreground"
               >
                 Sign Out
               </Button>
@@ -155,77 +143,55 @@ const Closet = () => {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Page Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">My Closet</h1>
-            <p className="text-gray-600 mt-1">Organize and style your wardrobe</p>
+      <main className="container mx-auto px-6 py-8">
+        {/* Profile Section */}
+        <div className="mb-8">
+          <div className="flex items-center gap-6 mb-6">
+            <div className="w-24 h-24 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center shadow-glow">
+              <User className="h-12 w-12 text-primary-foreground" />
+            </div>
+            <div className="flex-1">
+              <h1 className="text-2xl font-bold text-foreground mb-2">{profile.display_name || profile.username}</h1>
+              <div className="flex gap-6 text-sm text-muted-foreground">
+                <span><strong className="text-foreground">342</strong> following</span>
+                <span><strong className="text-foreground">1.2k</strong> followers</span>
+              </div>
+            </div>
           </div>
-          <Button 
-            onClick={() => setShowUpload(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-6 py-3 font-medium"
-          >
-            Create New Outfit
-          </Button>
         </div>
 
-        {/* Search and Filters */}
-        <div className="mb-8 space-y-4">
+        {/* My Closet Section */}
+        <div className="mb-8">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-3xl font-bold text-foreground">My Closet</h2>
+              <p className="text-muted-foreground mt-1">Create and organize your digital wardrobe</p>
+            </div>
+            <Button 
+              onClick={() => setShowUpload(true)}
+              className="bg-gradient-to-r from-primary/10 to-accent/10 hover:from-primary/20 hover:to-accent/20 text-primary border border-primary/20 rounded-full px-6 py-3 font-medium shadow-sm hover:shadow-md transition-all hover:scale-105"
+            >
+              Create New Outfit
+            </Button>
+          </div>
+
           {/* Search Bar */}
-          <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+          <div className="relative max-w-md mb-6">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-primary h-5 w-5" />
             <Input
               type="text"
-              placeholder="Search outfits..."
+              placeholder="Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 rounded-xl border-gray-200 bg-white focus:border-blue-500 focus:ring-blue-500"
+              className="pl-12 h-12 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 focus:border-primary focus:ring-primary text-foreground placeholder:text-muted-foreground"
             />
           </div>
 
-          {/* Filter Tags */}
-          <div className="flex items-center gap-3 flex-wrap">
-            {filters.map((filter) => (
-              <Badge
-                key={filter}
-                variant={selectedFilters.includes(filter) ? "default" : "outline"}
-                className={`cursor-pointer px-4 py-2 rounded-full transition-colors ${
-                  selectedFilters.includes(filter)
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-gray-200'
-                }`}
-                onClick={() => toggleFilter(filter)}
-              >
-                {filter}
-              </Badge>
-            ))}
+          {/* Gallery Grid */}
+          <div className="bg-card rounded-2xl shadow-card border border-border/20 p-6">
+            <WardrobeGrid userId={profile.user_id} isOwnWardrobe={true} />
           </div>
-
-          {/* View Toggle */}
-          <div className="flex items-center gap-2">
-            <Button
-              variant={viewMode === 'list' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setViewMode('list')}
-              className="rounded-lg"
-            >
-              <List className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={viewMode === 'grid' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setViewMode('grid')}
-              className="rounded-lg"
-            >
-              <Grid3X3 className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-
-        {/* Wardrobe Grid */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-          <WardrobeGrid userId={profile.user_id} isOwnWardrobe={true} />
         </div>
       </main>
 

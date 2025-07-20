@@ -8,6 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '@/components/Footer';
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -71,42 +72,58 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-lg">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="mx-auto w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg mb-4">
-            <span className="text-3xl font-bold text-white">F</span>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            {isSignUp ? 'Join Fitzy' : 'Welcome back'}
-          </h1>
-          <p className="text-gray-600 text-lg">
-            {isSignUp 
-              ? 'Create your account and start building your digital closet' 
-              : 'Sign in to access your closet and connect with friends'
-            }
-          </p>
+    <div className="min-h-screen flex flex-col">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 blur-nav">
+        <div className="container mx-auto px-6 py-4">
+          <nav className="flex items-center justify-between">
+            <button 
+              onClick={() => navigate('/')}
+              className="text-2xl font-bold tracking-tighter text-primary"
+            >
+              Fitzty
+            </button>
+          </nav>
         </div>
+      </header>
 
-        {/* Auth Card */}
-        <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm rounded-3xl overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8">
-            <CardTitle className="text-2xl font-semibold text-center">
-              {isSignUp ? 'Create Account' : 'Sign In'}
-            </CardTitle>
-            <CardDescription className="text-blue-100 text-center mt-2">
+      {/* Main Content */}
+      <div className="flex-1 bg-gradient-to-br from-background via-primary/5 to-accent/10 flex items-center justify-center p-4 pt-24">
+        <div className="w-full max-w-lg">
+          {/* Auth Header */}
+          <div className="text-center mb-8">
+            <div className="mx-auto w-20 h-20 bg-gradient-to-r from-primary to-accent rounded-2xl flex items-center justify-center shadow-glow mb-4">
+              <span className="text-3xl font-bold text-primary-foreground">F</span>
+            </div>
+            <h1 className="text-4xl font-bold text-foreground mb-2">
+              {isSignUp ? 'Join Fitzty' : 'Welcome back'}
+            </h1>
+            <p className="text-muted-foreground text-lg">
               {isSignUp 
-                ? 'Join thousands of fashion enthusiasts' 
-                : 'Continue your style journey'
+                ? 'Create your account and start building your digital closet' 
+                : 'Sign in to access your closet and connect with friends'
               }
-            </CardDescription>
-          </CardHeader>
+            </p>
+          </div>
+
+          {/* Auth Card */}
+          <Card className="glass shadow-elevated border-0 rounded-3xl overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-primary to-accent text-primary-foreground p-8">
+              <CardTitle className="text-2xl font-semibold text-center">
+                {isSignUp ? 'Create Account' : 'Sign In'}
+              </CardTitle>
+              <CardDescription className="text-primary-foreground/80 text-center mt-2">
+                {isSignUp 
+                  ? 'Join thousands of fashion enthusiasts' 
+                  : 'Continue your style journey'
+                }
+              </CardDescription>
+            </CardHeader>
           <CardContent className="p-8">
             <form onSubmit={handleAuth} className="space-y-6">
               {isSignUp && (
                 <div className="space-y-2">
-                  <Label htmlFor="username" className="text-sm font-medium text-gray-700">Username</Label>
+                  <Label htmlFor="username" className="text-sm font-medium text-foreground">Username</Label>
                   <Input
                     id="username"
                     type="text"
@@ -114,12 +131,12 @@ const Auth = () => {
                     onChange={(e) => setUsername(e.target.value)}
                     required
                     placeholder="Choose a unique username"
-                    className="h-12 rounded-xl border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                    className="h-12 rounded-xl border-border focus:border-primary focus:ring-primary"
                   />
                 </div>
               )}
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium text-gray-700">Email Address</Label>
+                <Label htmlFor="email" className="text-sm font-medium text-foreground">Email Address</Label>
                 <Input
                   id="email"
                   type="email"
@@ -127,11 +144,11 @@ const Auth = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="Enter your email address"
-                  className="h-12 rounded-xl border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                  className="h-12 rounded-xl border-border focus:border-primary focus:ring-primary"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium text-gray-700">Password</Label>
+                <Label htmlFor="password" className="text-sm font-medium text-foreground">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -140,12 +157,12 @@ const Auth = () => {
                   required
                   placeholder="Create a secure password"
                   minLength={6}
-                  className="h-12 rounded-xl border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                  className="h-12 rounded-xl border-border focus:border-primary focus:ring-primary"
                 />
               </div>
               <Button 
                 type="submit" 
-                className="w-full h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-xl font-semibold text-lg shadow-lg transition-all duration-200" 
+                className="w-full h-12 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 rounded-xl font-semibold text-lg shadow-glow transition-all duration-200" 
                 disabled={loading}
               >
                 {loading ? (
@@ -161,16 +178,16 @@ const Auth = () => {
             
             {/* Social Login Options */}
             <div className="mt-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200"></div>
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-border"></div>
+                  </div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-2 bg-card text-muted-foreground">Or continue with</span>
+                  </div>
                 </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">Or continue with</span>
-                </div>
-              </div>
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                <Button variant="outline" className="h-12 rounded-xl border-gray-200" disabled>
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  <Button variant="outline" className="h-12 rounded-xl border-border" disabled>
                   <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                     <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -179,7 +196,7 @@ const Auth = () => {
                   </svg>
                   Google
                 </Button>
-                <Button variant="outline" className="h-12 rounded-xl border-gray-200" disabled>
+                <Button variant="outline" className="h-12 rounded-xl border-border" disabled>
                   <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
                   </svg>
@@ -192,7 +209,7 @@ const Auth = () => {
               <Button
                 variant="link"
                 onClick={() => setIsSignUp(!isSignUp)}
-                className="text-blue-600 hover:text-blue-700 font-medium"
+                className="text-primary hover:text-primary/80 font-medium"
               >
                 {isSignUp 
                   ? 'Already have an account? Sign in' 
@@ -200,14 +217,18 @@ const Auth = () => {
                 }
               </Button>
             </div>
-          </CardContent>
-        </Card>
-        
-        {/* Footer */}
-        <div className="text-center mt-8 text-sm text-gray-500">
-          <p>By continuing, you agree to our Terms of Service and Privacy Policy</p>
+            </CardContent>
+          </Card>
+          
+          {/* Terms */}
+          <div className="text-center mt-8 text-sm text-muted-foreground">
+            <p>By continuing, you agree to our Terms of Service and Privacy Policy</p>
+          </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
