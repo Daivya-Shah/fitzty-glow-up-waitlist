@@ -7,6 +7,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
+import Closet from "./pages/Closet";
 import Search from "./pages/Search";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
@@ -23,6 +24,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/closet" element={<Closet />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:username" element={<Profile />} />
             <Route path="/search" element={<Search />} />

@@ -38,7 +38,7 @@ const HeroSection = () => {
               size="lg"
               className="glow-button text-lg px-12 py-6 rounded-2xl font-light tracking-tight"
             >
-              Login / Sign Up
+              Get Started
             </Button>
           </div>
         </div>

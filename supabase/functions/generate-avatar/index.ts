@@ -80,7 +80,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         model: 'dall-e-3',
-        prompt: `Create a single 2D fashion avatar of one attractive person wearing this exact clothing item: ${detailedClothingDescription}. The avatar should be a modern person in a clean studio setting, showcasing the clothing item prominently. Style: professional fashion photography, clean white background, good lighting. The person should be wearing the EXACT same clothing item as described. Make sure it's only one person in the image.`,
+        prompt: `Create a single 2D fashion avatar showing ONE PERSON ONLY wearing this exact clothing item: ${detailedClothingDescription}. Requirements: 1) Show exactly ONE person, not multiple people or duplicates 2) The person should be wearing the EXACT same clothing item as described in detail 3) Clean white studio background 4) Professional fashion photography style 5) Good lighting showcasing the clothing 6) Modern attractive person 7) Full body or 3/4 view to show the complete clothing item clearly. Make it look exactly like a fashion closet app avatar.`,
         n: 1,
         size: '1024x1024',
         quality: 'standard'
